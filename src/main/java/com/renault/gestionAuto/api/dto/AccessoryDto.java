@@ -1,34 +1,21 @@
-package com.renault.gestionAuto.domain.entity;
+package com.renault.gestionAuto.api.dto;
 
 import com.renault.gestionAuto.domain.enums.AccessoryType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
-@Entity
-public class Accessory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AccessoryDto {
     private Long id;
-
     @NotBlank
     private String name;
-
     @NotBlank
     private String description;
-
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
     private BigDecimal price;
-
     @NotNull
-    @Enumerated(EnumType.STRING)
     private AccessoryType type;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Vehicle vehicle;
+    private Long vehicleId;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -40,6 +27,6 @@ public class Accessory {
     public void setPrice(BigDecimal price) { this.price = price; }
     public AccessoryType getType() { return type; }
     public void setType(AccessoryType type) { this.type = type; }
-    public Vehicle getVehicle() { return vehicle; }
-    public void setVehicle(Vehicle vehicle) { this.vehicle = vehicle; }
+    public Long getVehicleId() { return vehicleId; }
+    public void setVehicleId(Long vehicleId) { this.vehicleId = vehicleId; }
 }

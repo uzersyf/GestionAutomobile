@@ -1,49 +1,23 @@
-package com.renault.gestionAuto.domain.entity;
+package com.renault.gestionAuto.api.dto;
 
 import com.renault.gestionAuto.domain.enums.FuelType;
 import com.renault.gestionAuto.domain.enums.VehicleType;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.renault.gestionAuto.domain.entity.Garage;
-import com.renault.gestionAuto.domain.entity.Accessory;
-
-@Entity
-public class Vehicle {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class VehicleDto {
     private Long id;
-
     @NotBlank
     private String brand;
-
     @NotBlank
     private String model;
-
     @Min(1900)
     @Max(2100)
-    @Column(name = "manufacture_year")
     private int year;
-
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "varchar(32)")
     private FuelType fuelType;
-
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "varchar(32)")
     private VehicleType vehicleType;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Garage garage;
-
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Accessory> accessories = new ArrayList<>();
+    private Long garageId;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -57,8 +31,6 @@ public class Vehicle {
     public void setFuelType(FuelType fuelType) { this.fuelType = fuelType; }
     public VehicleType getVehicleType() { return vehicleType; }
     public void setVehicleType(VehicleType vehicleType) { this.vehicleType = vehicleType; }
-    public Garage getGarage() { return garage; }
-    public void setGarage(Garage garage) { this.garage = garage; }
-    public List<Accessory> getAccessories() { return accessories; }
-    public void setAccessories(List<Accessory> accessories) { this.accessories = accessories; }
+    public Long getGarageId() { return garageId; }
+    public void setGarageId(Long garageId) { this.garageId = garageId; }
 }
